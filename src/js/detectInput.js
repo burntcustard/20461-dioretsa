@@ -11,8 +11,8 @@ import { bindKeys, unbindKeys } from 'kontra';
 window.gamepads = [];
 
 function setupGamepad(e) {
-    let pad = e.gamepad;
-    let windowPad = window.gamepads[pad.index];
+    var pad = e.gamepad;
+    var windowPad = window.gamepads[pad.index];
 
     //console.log(`Gamepad connected at index ${pad.index}: ${pad.id}. ${pad.buttons.length} buttons, ${pad.axes.length} axes.`);
     windowPad = {
