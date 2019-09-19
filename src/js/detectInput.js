@@ -12,15 +12,16 @@ window.gamepads = [];
 
 function setupGamepad(e) {
     let pad = e.gamepad;
+    let windowPad = window.gamepads[pad.index];
 
     //console.log(`Gamepad connected at index ${pad.index}: ${pad.id}. ${pad.buttons.length} buttons, ${pad.axes.length} axes.`);
-    window.gamepads[pad.index] = {
+    windowPad = {
         id: pad.id,
         pressedButtons: {},
         axes: {}
     };
     if (pad.id.includes('2006')) {
-        window.gamepads[pad.index].buttonMap = {
+        windowPad.buttonMap = {
             'a': 1,
             'b': 0,
             'x': 3,
@@ -28,12 +29,12 @@ function setupGamepad(e) {
             'l': 4,
             'r': 5
         };
-        window.gamepads[pad.index].axesMap = {
+        windowPad.axesMap = {
             'x': 4,
             'y': 5
         };
     } else {
-        window.gamepads[pad.index].buttonMap = {
+        windowPad.buttonMap = {
             'a': 0,
             'b': 1,
             'x': 3,
@@ -41,7 +42,7 @@ function setupGamepad(e) {
             'l': 6,
             'r': 7
         };
-        window.gamepads[pad.index].axesMap = {
+        windowPad.axesMap = {
             'x': 0,
             'y': 1
         };

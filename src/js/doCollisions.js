@@ -282,7 +282,7 @@ export function doCollisions({sprites, cSystem, cResult}) {
             return
         }
 
-        for (const otherHitbox of potentials) {
+        for (let otherHitbox of potentials) {
             doCollision(sprite, otherHitbox.owner, cResult, sprites);
         }
     });

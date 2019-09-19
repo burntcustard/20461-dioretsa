@@ -9,7 +9,7 @@ import { createShrapnel } from './shrapnel';
 
 function createLines(radius) {
 
-    var pointNum =  Math.round(4 + Math.random() * 2 + Math.sqrt(radius));
+    var pointNum = Math.round(4 + Math.random() * 2 + Math.sqrt(radius));
     var lines = [];
 
     for (var i = 1; i <= pointNum; i++) {

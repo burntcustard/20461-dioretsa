@@ -170,8 +170,8 @@ function minify() {
     code = code.replace(/update/g, 'updoot');
     // code = code.replace(/\.controls/g, '.cntrls'); // Breaks things
     code = code.replace(/\.position/g, '.pos');
-    code = code.replace(/\.rotation/g, '.rot');
     code = code.replace(/\.padding/g, '.pad');
+    code = code.replace(/rotation/g, '_rotation');
     code = code.replace(/color/g, 'col');
     code = code.replace(/angle/g, 'angel');
     code = code.replace(/accept/g, 'accpt');
