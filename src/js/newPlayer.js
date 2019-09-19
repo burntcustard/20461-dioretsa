@@ -1,7 +1,7 @@
 import { Player } from './player';
 import { colors } from './colors';
-import ships from './ships/import/';
-import zzfx from './zzfx';
+import { ships } from './ships/import/';
+import { sound } from './sounds';
 
 /**
  * Pick random not-currently-used color. Based on:
@@ -59,7 +59,7 @@ export function newPlayer(game, controls, controllerId) {
         return;
     }
 
-    zzfx(.2,0,1000,.2,.03,.1,.1,0,.86); // ZzFX 42665
+    sound.beep();
 
     game.players.push(new Player({
         color: pickColor(game.players, controllerId),

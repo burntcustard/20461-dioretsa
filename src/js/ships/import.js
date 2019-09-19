@@ -3,7 +3,7 @@ import striker from './striker';
 import coback from './coback';
 import rocket from './rocket';
 
-export default [
+export const ships = [
     tri(),
     striker(),
     coback(),

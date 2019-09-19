@@ -7,7 +7,7 @@ import { createMeteor } from '../meteor';
 import { Player } from '../player';
 import { colors } from '../colors';
 import { detectNewInput } from '../detectInput';
-import zzfx from '../zzfx';
+import { sound } from '../sounds';
 
 var game;
 var mainMenu;
@@ -47,7 +47,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                     return;
                 }
                 mainMenu.prev();
-                zzfx(.2,0,1000,.2,.03,.1,.1,0,.86); // ZzFX 42665
+                sound.beep();
                 player.debounce.up = 15;
             } else {
                 player.debounce.up = 0;
@@ -59,7 +59,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                     return;
                 }
                 mainMenu.next();
-                zzfx(.2,0,1000,.2,.03,.1,.1,0,.86); // ZzFX 42665
+                sound.beep();
                 player.debounce.down = 15;
             } else {
                 player.debounce.down = 0;
@@ -70,7 +70,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                     player.debounce.accept--;
                     return;
                 }
-                zzfx(.2,0,1000,.2,.03,.1,.1,0,.86); // ZzFX 42665
+                sound.beep();
                 if (mainMenu.items[mainMenu.focus].text[0] === 'p') {
                     mainMenuLoop.stop()
                     scenes.startShipSelect(game, scenes);

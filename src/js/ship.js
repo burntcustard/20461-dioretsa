@@ -1,10 +1,10 @@
 import { keyPressed } from 'kontra';
 import { Sprite } from './sprite';
 import * as util from './utility';
-import ships from './ships/import';
+import { ships } from './ships/import';
 import { createBullet } from './bullet';
 import { createShrapnel } from './shrapnel';
-import zzfx from './zzfx';
+import { sound } from './sounds';
 
 export class Ship extends Sprite.class {
 
@@ -128,7 +128,7 @@ export class Ship extends Sprite.class {
         const cos = Math.cos(util.degToRad(this.rotation));
         const sin = Math.sin(util.degToRad(this.rotation));
 
-        zzfx(.4,0,1300,.1,.3,6.1,0,15.9,.88); // ZzFX 95732
+        sound.fire();
 
         this.fireDt = 0;
         this.ammoCurrent--;
@@ -166,7 +166,7 @@ export class Ship extends Sprite.class {
         const sin = Math.sin(util.degToRad(this.rotation));
 
         if (Math.random() < .05) {
-            zzfx(.3,.1,68,1,.07,0,3.6,0,.7); // ZzFX 78097
+            sound.thrusters();
         }
 
         // a = F / m (Newton's 2nd law of motion)
@@ -193,7 +193,7 @@ export class Ship extends Sprite.class {
             return false;
         }
 
-        zzfx(1,.1,11,.9,.5,2.5,.9,.4,.88); // ZzFX 82235
+        sound.rewind();
         this.rewindDt = 0;
         this.rewinding = this.history.length;
     }
@@ -211,7 +211,7 @@ export class Ship extends Sprite.class {
         if (this.shieldDegrading) {
             this.shieldDegrading--;
             if (this.shieldDegrading === 0) {
-                zzfx(.5,0,134,.1,.2,.1,0,11.6,.13); // ZzFX 26117
+                sound.shieldPop();
                 this.removeShield();
             }
         }
@@ -231,7 +231,7 @@ export class Ship extends Sprite.class {
         if (this.rainbow > 0) {
             this.rainbow -= 1 / 60;
             if (Math.floor(this.rainbow * 12) % 2) { // every 15 frames
-                zzfx(.2,.8,900,.1,.1,1.4,0,0,.7); // ZzFX 1820
+                sound.rainbow();
             }
             if (this.rainbow <= 0) {
                 this.maxSpeed = (this.shipData.maxSpeed + 6) / 12;
@@ -304,7 +304,7 @@ export class Ship extends Sprite.class {
             this.player.deaths++;
         }
 
-        zzfx(.5,.1,1100,.9,0,0,4,0,.4); // ZzFX 24676
+        sound.explodeShip();
 
         // Create new line sprites where the ship lines were
         this.lines.ship.forEach(line => {

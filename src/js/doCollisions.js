@@ -1,7 +1,7 @@
 import { createMeteor } from './meteor';
 import { bounce } from './bounce';
 import * as util from './utility';
-import zzfx from './zzfx';
+import { sound } from './sounds';
 
 function doCollision(sprite1, sprite2, cResult, sprites) {
 
@@ -35,7 +35,8 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
 
             if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
                 sprite2.ttl = 0;
-                zzfx(.4,0,1000,.1,.1,.4,3,0,.55); // ZzFX 46683
+                //zzfx(.4,0,1000,.1,.1,.4,3,0,.55); // ZzFX 46683
+                // sound.baseExplo() ???
 
                 if (sprite1.mass < 1e4 && sprite1.radius > 8) {
 
@@ -49,12 +50,12 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                         });
                     }
                     sprite1.ttl = 0
-                    zzfx(.2,.1,1100,.9,0,0,4,0,.4); // ZzFX 24676
+                    sound.explodeMeteor();
                 } else if (sprite1.mass > 1e4) {
                     // TODO: Sparks or shrapnel or something?
                 } else {
                     sprite1.explode(sprites);
-                    zzfx(.2,.1,1100,.9,0,0,4,0,.4); // ZzFX 24676
+                    sound.explodeMeteor();
                 }
             }
             return;
@@ -66,6 +67,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
             }
             if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
                 bounce(sprite1, sprite2, cResult);
+                // TODO: Meteor bouncey sound
             }
             return;
         }
@@ -76,6 +78,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
             }
             if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
                 bounce(sprite1, sprite2, cResult);
+                // TODO: Pickup/meteor bouncey sound
             }
             return;
         }
@@ -98,15 +101,16 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
         //     return;
         // }
 
-        if (sprite2.type === 'pickup') {
-            if (sprite1.bounced || sprite2.bounced){
-                return;
-            }
-            if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
-                bounce(sprite1, sprite2, cResult);
-            }
-            return;
-        }
+        // There should only be one pickup out at once, so they never collide
+        // if (sprite2.type === 'pickup') {
+        //     if (sprite1.bounced || sprite2.bounced){
+        //         return;
+        //     }
+        //     if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
+        //         bounce(sprite1, sprite2, cResult);
+        //     }
+        //     return;
+        // }
 
         // Handled in (sprite1.type === 'ship')
         // if (sprite2.type === 'ship') {
@@ -140,7 +144,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
 
                 sprite1.explode(sprites);
                 sprite2.owner.player.score++;
-                zzfx(.3,0,1993,.3,.1,.1,0,0,.8); // ZzFX 38591
+                sound.scoreInc();
             }
             return;
         }
@@ -175,13 +179,13 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                             });
                         }
                         sprite2.ttl = 0;
-                        zzfx(.2,.1,1100,.9,0,0,4,0,.4); // ZzFX 24676s
+                        sound.explodeMeteor();
                     } else if (sprite2.radius > 60) {
                         sprite1.x -= cResult.overlap * cResult.overlap_x;
                         sprite1.y -= cResult.overlap * cResult.overlap_y;
                     } else {
                         sprite2.explode(sprites);
-                        zzfx(.2,.1,1100,.9,0,0,4,0,.4); // ZzFX 24676
+                        sound.explodeMeteor();
                     }
                     return;
                 }
@@ -204,7 +208,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
         if (sprite2.type === 'pickup') {
             if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
                 sprite2.applyTo(sprite1);
-                zzfx(.3,0,51,.1,.6,2,.3,19,1); // ZzFX 54138
+                sound.getPickup();
                 sprite2.ttl = 0;
             }
             return;
@@ -229,7 +233,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                     }
                     sprite2.explode();
                     sprite1.player.score++;
-                    zzfx(.3,0,1993,.3,.1,.1,0,0,.8); // ZzFX 38591
+                    sound.scoreInc();
                     return;
                 }
 
