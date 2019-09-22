@@ -25,11 +25,24 @@ export class Player {
         // Set control scheme
         if (this.controls === 'gamepad') {
             this.keys = getKeys(this.controls, gamepadIndex++);
+            this.gamepadId = '';
             // Assign gamepadId & Remove misc characters before 'Joy-Con'
-            this.gamepadId = props.gamepadId.replace(/.*(?=Joy-)/g, '');
-            if (this.gamepadId.includes('Xbox')) {
+            if (props.gamepadId.includes('2006')) {
+                this.gamepadId = 'Joy Con';
+            }
+            if (props.gamepadId.includes('Xbox')) {
                 this.gamepadId = 'Xbox Controller';
             }
+            if (props.gamepadId.includes('(L)')) {
+                this.gamepadId += ' (L)';
+            }
+            if (props.gamepadId.includes('(R)')) {
+                this.gamepadId += ' (R)';
+            }
+            // this.gamepadId = props.gamepadId.replace(/.*(?=Joy-)/g, '');
+            // if (this.gamepadId.includes('Xbox')) {
+            //     this.gamepadId = 'Xbox Controller';
+            // }
         } else if (this.controls) {
             this.keys = getKeys(this.controls);
         }

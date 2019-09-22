@@ -12,13 +12,10 @@ window.gamepads = [];
 
 function setupGamepad(e) {
     var pad = e.gamepad;
-    var windowPad = window.gamepads[pad.index];
-
-    //console.log(`Gamepad connected at index ${pad.index}: ${pad.id}. ${pad.buttons.length} buttons, ${pad.axes.length} axes.`);
-    windowPad = {
+    var windowPad = window.gamepads[pad.index] = {
         id: pad.id,
         pressedButtons: {},
-        axes: {}
+        axes: {x: 0, y: 0}
     };
     if (pad.id.includes('2006')) {
         windowPad.buttonMap = {
@@ -29,10 +26,10 @@ function setupGamepad(e) {
             'l': 4,
             'r': 5
         };
-        windowPad.axesMap = {
-            'x': 4,
-            'y': 5
-        };
+        // windowPad.axesMap = {
+        //     'x': -1,
+        //     'y': -2
+        // };
     } else {
         windowPad.buttonMap = {
             'a': 0,
@@ -42,10 +39,10 @@ function setupGamepad(e) {
             'l': 6,
             'r': 7
         };
-        windowPad.axesMap = {
-            'x': 0,
-            'y': 1
-        };
+        // windowPad.axesMap = {
+        //     'x': 0,
+        //     'y': 1
+        // };
     }
 
     // Code to handle new players being added with new gamepads.
