@@ -1,7 +1,8 @@
-import { createMeteor } from './meteor';
 import { bounce } from './bounce';
-import * as util from './utility';
+import { createMeteor } from './meteor';
 import { sound } from './sounds';
+import { Sprite } from './sprite';
+import * as util from './utility';
 
 function doCollision(sprite1, sprite2, cResult, sprites) {
 
@@ -35,6 +36,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
 
             if (sprite1.hitbox.collides(sprite2.hitbox, cResult)) {
                 sprite2.ttl = 0;
+
                 //zzfx(.4,0,1000,.1,.1,.4,3,0,.55); // ZzFX 46683
                 // sound.baseExplo() ???
 
@@ -53,6 +55,41 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                     sound.explodeMeteor();
                 } else if (sprite1.mass > 1e4) {
                     // TODO: Sparks or shrapnel or something?
+                    var particle;
+                    for (var i = 0; i < 3; i++) {
+                        particle = new Sprite({
+                            ttl: Math.random() * 60,
+                            x: sprite2.x + cResult.overlap * cResult.overlap_x,
+                            y: sprite2.y + cResult.overlap * cResult.overlap_y,
+                            dx: cResult.overlap_x + Math.random() - .5,
+                            dy: cResult.overlap_y + Math.random() - .5,
+
+                            update(dt) {
+                                this.velocity = this.velocity.add(this.acceleration, dt);
+                                this.position = this.position.add(this.velocity, dt);
+                                this.ttl--;
+                            },
+
+                            render(scale) {
+                                this.ctx.save();
+                                this.ctx.scale(scale, scale);
+                                this.ctx.translate(this.x, this.y);
+
+                                this.ctx.fillStyle = '#fff';
+                                this.ctx.beginPath();
+                                this.ctx.arc(
+                                    0,
+                                    0,
+                                    1,
+                                    0,
+                                    2 * Math.PI
+                                );
+                                this.ctx.fill();
+                                this.ctx.restore();
+                            }
+                        });
+                        sprite1.game.sprites.push(particle);
+                    }
                 } else {
                     sprite1.explode(sprites);
                     sound.explodeMeteor();
