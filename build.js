@@ -154,12 +154,13 @@ function minify() {
     // Replace Collisions debug stuff
     code = code.replace(/if.*[\s]*throw.*Error.*[\s]*}/g, '');
 
-    // shorten some very specific names from the pre-minified code
-    code = code.replace(/'bullet'/g, "'b'");
-    code = code.replace(/'meteor'/g, "'m'");
-    code = code.replace(/'pickup'/g, "'p'");
-    code = code.replace(/'ship'/g, "'s'");
-    code = code.replace(/'shrapnel'/g, "'sh'");
+    // Shorten some very specific names from the pre-minified code.
+    // These are 'reused' strings from elsewhere in the code to compress better
+    code = code.replace(/'bullet'/g, "'w'");
+    code = code.replace(/'meteor'/g, "'a'");
+    code = code.replace(/'pickup'/g, "'s'");
+    code = code.replace(/'ship'/g, "'d'");
+    code = code.replace(/'shrapnel'/g, "'e'");
 
     // Replace some "terser reserved words" from source before minifying
     // These are VERY LIKELY to break things
@@ -169,8 +170,8 @@ function minify() {
     code = code.replace(/history/g, 'hist');
     code = code.replace(/update/g, 'updoot');
     code = code.replace(/controls/g, 'cntrls'); // Breaks things
-    code = code.replace(/\.position/g, '.pos');
-    code = code.replace(/\.padding/g, '.pad');
+    code = code.replace(/position/g, 'pos');
+    code = code.replace(/padding/g, 'pad');
     code = code.replace(/rotation/g, '_rotation');
     code = code.replace(/color/g, 'col');
     code = code.replace(/angle/g, 'angel');
