@@ -1,4 +1,5 @@
-import { init, initKeys } from 'kontra';
+import { init } from 'kontra';
+import { initKeys } from './keyboard';
 import { setSizing } from './setSizing';
 
 // Import all the scenes because we're somehow going to handle changing

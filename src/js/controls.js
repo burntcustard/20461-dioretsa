@@ -1,4 +1,5 @@
-import { keyPressed } from 'kontra';
+//import { keyDown } from 'kontra';
+import { keyDown } from './keyboard';
 import { buttonPressed, axisValue } from './gamepad';
 
 export default (scheme, gamepadIndex) => {
@@ -6,27 +7,27 @@ export default (scheme, gamepadIndex) => {
         switch (scheme.toLowerCase()) {
             case 'arrows':
                 return {
-                    thrust: () => keyPressed('up'),
-                    fire:   () => keyPressed('space'),
-                    left:   () => keyPressed('left'),
-                    right:  () => keyPressed('right'),
-                    rewind: () => keyPressed('down'),
-                    up:     () => keyPressed('up'),
-                    down:   () => keyPressed('down'),
-                    accept: () => keyPressed('space'),
-                    back:   () => keyPressed('esc'),
+                    thrust: () => keyDown('ArrowUp'),
+                    fire:   () => keyDown(' '),
+                    left:   () => keyDown('ArrowLeft'),
+                    right:  () => keyDown('ArrowRight'),
+                    rewind: () => keyDown('ArrowDown'),
+                    up:     () => keyDown('ArrowUp'),
+                    down:   () => keyDown('ArrowDown'),
+                    accept: () => keyDown(' '),
+                    back:   () => keyDown('Escape'),
                 };
             case 'wasd/zqsd':
                 return {
-                    thrust: () => keyPressed('w') || keyPressed('z'),
-                    fire:   () => keyPressed('e'),
-                    left:   () => keyPressed('a') || keyPressed('q'),
-                    right:  () => keyPressed('d'),
-                    rewind: () => keyPressed('s'),
-                    up:     () => keyPressed('w'),
-                    down:   () => keyPressed('s'),
-                    accept: () => keyPressed('e'),
-                    back:   () => keyPressed('x'),
+                    thrust: () => keyDown('w') || keyDown('z'),
+                    fire:   () => keyDown('e'),
+                    left:   () => keyDown('a') || keyDown('q'),
+                    right:  () => keyDown('d'),
+                    rewind: () => keyDown('s'),
+                    up:     () => keyDown('w'),
+                    down:   () => keyDown('s'),
+                    accept: () => keyDown('e'),
+                    back:   () => keyDown('x'),
                 };
             case 'gamepad':
                 return {

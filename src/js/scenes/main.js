@@ -1,4 +1,4 @@
-import { initKeys, GameLoop } from 'kontra';
+import { GameLoop } from 'kontra';
 import { setSizing } from '../setSizing';
 import { pollGamepads } from '../gamepad';
 import { renderText } from '../text';

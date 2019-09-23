@@ -1,10 +1,12 @@
 import { GameLoop } from 'kontra';
-import { pollGamepads } from '../gamepad';
-import { renderText } from '../text';
 import { colors } from '../colors';
+import { keyPressed } from 'kontra';
+import { newPlayer } from '../newPlayer';
+import { pollGamepads, buttonPressed } from '../gamepad';
+import { renderText } from '../text';
 import { ships } from '../ships/import';
-import * as util from '../utility';
 import { sound } from '../sounds';
+import * as util from '../utility';
 
 var game;
 var scenes;
@@ -12,6 +14,42 @@ var scenes;
 const menuLoop = GameLoop({  // create the main game loop
     update() { // update the game state
         pollGamepads();
+
+        if (keyPressed('n')) {
+            newPlayer(game, 'ai');
+        }
+
+        if (keyPressed('m')) {
+            var lastAiIndex = null;
+            game.players.forEach((player, i) => {
+                if (player.controls === 'ai') {
+                    lastAiIndex = i;
+                }
+            });
+
+            // Explodes if the AI was at index - 0 but that shouldn't happen!
+            if (lastAiIndex !== null) {
+                game.players.splice(lastAiIndex, 1);
+            }
+        }
+
+        // bindKeys(['n'], function(e) {
+        //     newPlayer(window.game, 'ai');
+        // });
+        //
+        // bindKeys(['m'], function(e) {
+        //     var lastAiIndex = null;
+        //     window.game.players.forEach((player, i) => {
+        //         if (player.controls === 'ai') {
+        //             lastAiIndex = i;
+        //         }
+        //     });
+        //
+        //     // Explodes if the AI was at index - 0 but that shouldn't happen!
+        //     if (lastAiIndex !== null) {
+        //         window.game.players.splice(lastAiIndex, 1);
+        //     }
+        // });
 
         game.players.forEach((player, i) => {
 

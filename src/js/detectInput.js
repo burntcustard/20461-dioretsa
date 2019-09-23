@@ -5,7 +5,8 @@
  */
 
 import { newPlayer } from './newPlayer';
-import { bindKeys, unbindKeys } from 'kontra';
+//import { bindKeys, unbindKeys } from 'kontra';
+import { bindKeys, unbindKeys } from './keyboard';
 
 // Setup a global array for holding gamepad infos
 window.gamepads = [];
@@ -46,7 +47,7 @@ function setupGamepad(e) {
     }
 
     // Code to handle new players being added with new gamepads.
-    newPlayer(window.game, 'gamepad', pad.id)
+    newPlayer(window.game, 'gamepad', pad.id);
 }
 
 function keySetUsed(keys) {
@@ -63,9 +64,12 @@ export function detectNewInput() {
     // Event when new gamepads get connected
     window.addEventListener('gamepadconnected', setupGamepad);
 
-    bindKeys(['space', 'up', 'right', 'down', 'left'], function(e) {
-        keySetUsed('arrows');
-    });
+    bindKeys(
+        [' ', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'],
+        function(e) {
+            keySetUsed('arrows');
+        }
+    );
 
     bindKeys(['w', 'a', 's', 'd', 'z', 'q'], function(e) {
         keySetUsed('wasd/zqsd');
