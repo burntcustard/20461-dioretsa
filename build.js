@@ -164,18 +164,18 @@ function minify() {
 
     // Replace some "terser reserved words" from source before minifying
     // These are VERY LIKELY to break things
-    code = code.replace(/acceleration/g, 'accel');
-    code = code.replace(/detail/g, 'dtail');
-    code = code.replace(/focus/g, 'hocus');
-    code = code.replace(/history/g, 'hist');
-    code = code.replace(/update/g, 'updoot');
-    code = code.replace(/controls/g, 'cntrls'); // Breaks things
-    code = code.replace(/position/g, 'pos');
-    code = code.replace(/padding/g, 'pad');
+    code = code.replace(/acceleration/g, '_acceleration');
+    code = code.replace(/detail/g, '_detail');
+    code = code.replace(/focus/g, '_focus');
+    code = code.replace(/history/g, '_history');
+    code = code.replace(/update/g, '_update');
+    code = code.replace(/controls/g, '_controls');
+    code = code.replace(/position/g, '_position');
+    code = code.replace(/padding/g, '_padding');
     code = code.replace(/rotation/g, '_rotation');
-    code = code.replace(/color/g, 'col');
-    code = code.replace(/angle/g, 'angel');
-    code = code.replace(/accept/g, 'accpt');
+    code = code.replace(/color/g, '_color');
+    code = code.replace(/angle/g, '_angle');
+    code = code.replace(/accept/g, '_accept');
 
     const result = terser.minify(code, options);
 
