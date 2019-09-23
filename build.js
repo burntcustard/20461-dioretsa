@@ -151,7 +151,7 @@ function minify() {
     // Replace Kontra's debug stuff
     code = pp.preprocess(code, { DEBUG, VISUAL_DEBUG }, { type: 'js' });
 
-    // Replace Collisions debug stuff
+    // Remove Collisions debug stuff
     code = code.replace(/if.*[\s]*throw.*Error.*[\s]*}/g, '');
 
     // Shorten some very specific names from the pre-minified code.
