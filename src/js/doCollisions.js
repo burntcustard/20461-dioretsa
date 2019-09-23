@@ -57,7 +57,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                     // TODO: Sparks or shrapnel or something?
                     var particle;
                     for (var i = 0; i < 3; i++) {
-                        particle = new Sprite({
+                        sprite1.game.sprites.push(new Sprite({
                             ttl: Math.random() * 60,
                             x: sprite2.x + cResult.overlap * cResult.overlap_x,
                             y: sprite2.y + cResult.overlap * cResult.overlap_y,
@@ -87,8 +87,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                                 this.ctx.fill();
                                 this.ctx.restore();
                             }
-                        });
-                        sprite1.game.sprites.push(particle);
+                        }));
                     }
                 } else {
                     sprite1.explode(sprites);

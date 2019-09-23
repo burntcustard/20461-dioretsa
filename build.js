@@ -168,7 +168,7 @@ function minify() {
     code = code.replace(/focus/g, 'hocus');
     code = code.replace(/history/g, 'hist');
     code = code.replace(/update/g, 'updoot');
-    // code = code.replace(/\.controls/g, '.cntrls'); // Breaks things
+    code = code.replace(/controls/g, 'cntrls'); // Breaks things
     code = code.replace(/\.position/g, '.pos');
     code = code.replace(/\.padding/g, '.pad');
     code = code.replace(/rotation/g, '_rotation');
