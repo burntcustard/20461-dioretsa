@@ -18,7 +18,7 @@ function setupGamepad(e) {
         pressedButtons: {},
         axes: {x: 0, y: 0}
     };
-    if (pad.id.includes('2006')) {
+    if (pad.id.match(/2006|2007/)) {
         windowPad.buttonMap = {
             'a': 1,
             'b': 0,

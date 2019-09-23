@@ -26,8 +26,9 @@ export class Player {
         if (this.controls === 'gamepad') {
             this.keys = getKeys(this.controls, gamepadIndex++);
             this.gamepadId = '';
+            console.log(props.gamepadId);
             // Assign gamepadId & Remove misc characters before 'Joy-Con'
-            if (props.gamepadId.includes('2006')) {
+            if (props.gamepadId.match(/2006|2007/)) {
                 this.gamepadId = 'Joy Con';
             }
             if (props.gamepadId.includes('Xbox')) {
