@@ -156,11 +156,11 @@ function minify() {
 
     // Shorten some very specific names from the pre-minified code.
     // These are 'reused' strings from elsewhere in the code to compress better
-    code = code.replace(/'bullet'/g, "'w'");
-    code = code.replace(/'meteor'/g, "'a'");
-    code = code.replace(/'pickup'/g, "'s'");
-    code = code.replace(/'ship'/g, "'d'");
-    code = code.replace(/'shrapnel'/g, "'e'");
+    code = code.replace(/'bullet'/g, '0');
+    code = code.replace(/'meteor'/g, '1');
+    code = code.replace(/'pickup'/g, '2');
+    code = code.replace(/'ship'/g, '3');
+    code = code.replace(/'shrapnel'/g, '4');
 
     // Replace some "terser reserved words" from source before minifying
     // These are VERY LIKELY to break things
