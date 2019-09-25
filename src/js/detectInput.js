@@ -6,7 +6,7 @@
 
 import { newPlayer } from './newPlayer';
 //import { bindKeys, unbindKeys } from 'kontra';
-import { bindKeys, unbindKeys } from './keyboard';
+import { bindKeys, unbindAllKeys } from './keyboard';
 
 // Setup a global array for holding gamepad infos
 window.gamepads = [];
@@ -96,5 +96,5 @@ export function detectNewInput() {
 
 export function dontDetectNewInput() {
     window.removeEventListener('gamepadconnected', setupGamepad);
-    unbindKeys([' ', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', 'n', 'm', 'w', 'a', 's', 'd', 'z', 'q']);
+    unbindAllKeys();
 }

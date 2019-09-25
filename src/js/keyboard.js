@@ -68,7 +68,7 @@ export function initKeys() {
  * @param  {Function} callback [description]
  */
 export function bindKeys(keys, callback) {
-  keys.map(key => callbacks[key] = callback);
+    keys.map(key => callbacks[key] = callback);
 }
 
 /**
@@ -77,7 +77,11 @@ export function bindKeys(keys, callback) {
  * developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
  */
 export function unbindKeys(keys) {
-  keys.map(key => callbacks[key] = false);
+    keys.map(key => callbacks[key] = false);
+}
+
+export function unbindAllKeys() {
+    callbacks = {};
 }
 
 export function keyPressed(key) {
