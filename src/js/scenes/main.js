@@ -72,6 +72,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                 }
                 sound.beep();
                 if (mainMenu.items[mainMenu.focus].text[0] === 'p') {
+                    window.removeEventListener('resize', slowCreateMenuMeteor);
                     mainMenuLoop.stop()
                     scenes.startShipSelect(game, scenes);
                 } else if (mainMenu.items[mainMenu.focus].text[0] === 's') {
@@ -80,19 +81,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                         game.size = .75;
                     }
                     setSizing(game);
-                    mainMenu.items[mainMenu.focus].text = 'scale ' + game.size * 100 + '%';
-                    game.sprites.splice(0, 1);
-                    // Big asteroid in the middle (dioretsa)
-                    createMeteor({
-                        x: game.width * .4,
-                        y: game.height * .8,
-                        radius: Math.min(game.width / 2, game.height / 2),
-                        dx: 0,
-                        dy: 0,
-                        dr: .05,
-                        noCollision: true,
-                        game: game
-                    });
+                    createMenuMeteor();
                 } else {
                     mainMenu.items[mainMenu.focus].text = 'credits - no room!'
                 }
@@ -157,6 +146,30 @@ let mainMenuLoop = GameLoop({  // create the main game loop
     }
 });
 
+// Big asteroid in the middle (dioretsa)
+function createMenuMeteor() {
+    game.sprites.splice(0, 1); // Remove old if already existed
+    createMeteor({
+        x: game.width * .4,
+        y: game.height * .8,
+        radius: Math.min(game.width / 2, game.height / 2),
+        dx: 0,
+        dy: 0,
+        dr: .05,
+        noCollision: true,
+        game: game
+    });
+}
+
+var resizeTimer;
+
+function slowCreateMenuMeteor() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        createMenuMeteor();
+    }, 90); // 90ms is enough for slow resize to not fire it multiple times
+}
+
 export function startMainMenu(newGame, otherScenes) {
 
     game = newGame;
@@ -180,17 +193,9 @@ export function startMainMenu(newGame, otherScenes) {
         ]
     });
 
-    // Big asteroid in the middle (dioretsa)
-    createMeteor({
-        x: game.width * .4,
-        y: game.height * .8,
-        radius: Math.min(game.width / 2, game.height / 2),
-        dx: 0,
-        dy: 0,
-        dr: .05,
-        noCollision: true,
-        game: game
-    });
+    createMenuMeteor();
+
+    window.addEventListener('resize', slowCreateMenuMeteor);
 
     mainMenuLoop.start(game, scenes);
 }
