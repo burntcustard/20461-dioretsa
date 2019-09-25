@@ -96,5 +96,5 @@ export function detectNewInput() {
 
 export function dontDetectNewInput() {
     window.removeEventListener('gamepadconnected', setupGamepad);
-    unbindKeys(['space', 'up', 'right', 'down', 'left', 'w', 'a', 's', 'd']);
+    unbindKeys([' ', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', 'n', 'm', 'w', 'a', 's', 'd', 'z', 'q']);
 }
