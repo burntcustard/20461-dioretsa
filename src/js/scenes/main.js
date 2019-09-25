@@ -81,6 +81,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                         game.size = .75;
                     }
                     setSizing(game);
+                    mainMenu.items[mainMenu.focus].text = 'scale ' + game.size * 100 + '%';
                     createMenuMeteor();
                 } else {
                     mainMenu.items[mainMenu.focus].text = 'credits - no room!'
