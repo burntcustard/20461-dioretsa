@@ -351,8 +351,16 @@ export class Ship extends Sprite.class {
                 0,
                 0,
                 this.radius + 6,
-                Math.PI - (.2 * Math.PI * 1) + ammoAngle * i * 2,
+                // Math.PI - (.2 * Math.PI * 1) + ammoAngle * i * 2,
+                // That gets minified to:
+                // 2.5132741228718345+i*t*2
+                // which isn't great for zip compression.
+                // So instead lets do:
+                .8 * Math.PI + ammoAngle * i * 2,
+                // That saved 12 bytes!
                 Math.PI + (ammoAngle * 2 - gap) - (.2 * Math.PI) + ammoAngle * i * 2
+                // That gets minified to:
+                // Math.PI+(2*i-.05)-.2*Math.PI+i*t*2)
             );
             this.ctx.stroke();
         }
