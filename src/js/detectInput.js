@@ -66,14 +66,17 @@ export function detectNewInput() {
 
     bindKeys(
         [' ', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'],
-        function(e) {
+        () => {
             keySetUsed('arrows');
         }
     );
 
-    bindKeys(['w', 'a', 's', 'd', 'z', 'q'], function(e) {
-        keySetUsed('wasd/zqsd');
-    });
+    bindKeys(
+        ['w', 'a', 's', 'd', 'z', 'q'],
+        () => {
+            keySetUsed('wasd/zqsd');
+        }
+    );
 
     // bindKeys(['n'], function(e) {
     //     newPlayer(window.game, 'ai');
