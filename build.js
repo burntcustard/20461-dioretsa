@@ -187,12 +187,15 @@ function minify() {
     // Remove a bit of dead Kontra init code
     result.code = result.code.replace('document.getElementById(void 0)||', '');
 
-    // Pull the last semi-colon
+    // Pull the last semi-colon.
+    // No longer used as whole function wrapper removed instead
     // result.code = result.code.replace(/;$/, '');
 
     // Don't wrap the game in a function
+    // The 2nd replace doesn't use $, in case the closing tag isn't at the end.
+    // - That does make it risky, as those chars might be somewhere else too.
     result.code = result.code.replace(/^\!function\(\){/, '');
-    result.code = result.code.replace(/\}\(\);$/, '');
+    result.code = result.code.replace(/}\(\);/, '');
 
     fs.writeFileSync('dist/main.min.js', result.code);
     if (result.map) {

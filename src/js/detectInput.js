@@ -75,23 +75,23 @@ export function detectNewInput() {
         keySetUsed('wasd/zqsd');
     });
 
-    bindKeys(['n'], function(e) {
-        newPlayer(window.game, 'ai');
-    });
+    // bindKeys(['n'], function(e) {
+    //     newPlayer(window.game, 'ai');
+    // });
 
-    bindKeys(['m'], function(e) {
-        var lastAiIndex = null;
-        window.game.players.forEach((player, i) => {
-            if (player.controls === 'ai') {
-                lastAiIndex = i;
-            }
-        });
-
-        // Explodes if the AI was at index - 0 but that shouldn't happen!
-        if (lastAiIndex !== null) {
-            window.game.players.splice(lastAiIndex, 1);
-        }
-    });
+    // bindKeys(['m'], function(e) {
+    //     var lastAiIndex = null;
+    //     window.game.players.forEach((player, i) => {
+    //         if (player.controls === 'ai') {
+    //             lastAiIndex = i;
+    //         }
+    //     });
+    //
+    //     // Explodes if the AI was at index - 0 but that shouldn't happen!
+    //     if (lastAiIndex !== null) {
+    //         window.game.players.splice(lastAiIndex, 1);
+    //     }
+    // });
 }
 
 export function dontDetectNewInput() {
