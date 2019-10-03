@@ -54,8 +54,10 @@ function pickColor(players, controllerId) {
 
 export function newPlayer(game, controls, controllerId) {
 
-    if (game.players.length === 4) {
-        //Console.warn('Game does not support more than 4 players yet');
+    let numColors = Object.keys(colors).length;
+
+    if (game.players.length === numColors) {
+        console.warn('Game doesn\'t support > ' + numColors + ' players');
         return;
     }
 

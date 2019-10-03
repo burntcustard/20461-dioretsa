@@ -11,6 +11,27 @@ import * as util from '../utility';
 var game;
 var scenes;
 
+function getPlayerPos(playerIndex, gridSize, margin) {
+    let x = y = 0;
+
+    // Grid position coords e.g.
+    // 0,0  1,0  2,0        0,0  1,0
+    // 0,1  1,1  2,1   or   0,1  1,1
+    // 0,2  1,2  2,2
+    let xPos = playerIndex % gridSize;
+    let yPos = Math.floor(playerIndex / gridSize) % gridSize;
+
+    // Translate to game coords
+    x = xPos * game.width / gridSize;
+    y = yPos * game.height / gridSize;
+
+    // Add double margin for 0-index, otherwise double
+    x += xPos ? margin : margin * 2;
+    y += yPos ? margin : margin * 2;
+
+    return [x, y];
+}
+
 const menuLoop = GameLoop({  // create the main game loop
     update() { // update the game state
         pollGamepads();
@@ -147,34 +168,26 @@ const menuLoop = GameLoop({  // create the main game loop
     },
 
     render() {
-        game.players.forEach((player, i) => {
-            let x = y = 0;
+        let gridSize = game.players.length > 4 ? 3 : 2;
+        let margin = 4;
 
-            if (i === 1 || i == 3) {
-                x = 4 + game.width / 2;
-            } else {
-                x = 8;
-            }
-            if (i === 2 || i === 3) {
-                y = 4 + game.height / 2;
-            } else {
-                y = 8;
-            }
+        game.players.forEach((player, i) => {
+            let [x, y] = getPlayerPos(i, gridSize, margin);
 
             game.ctx.save();
             game.ctx.scale(game.scale, game.scale);
             game.ctx.clearRect(
                 x,
                 y,
-                game.width / 2 - 12,
-                game.height / 2 - 12,
+                game.width / gridSize - 12,
+                game.height / gridSize - 12,
             );
             game.ctx.strokeStyle = player.color;
             game.ctx.strokeRect(
                 x,
                 y,
-                game.width / 2 - 12,
-                game.height / 2 - 12,
+                game.width / gridSize - 12,
+                game.height / gridSize - 12,
             )
             game.ctx.restore();
 
@@ -194,7 +207,7 @@ const menuLoop = GameLoop({  // create the main game loop
                 color: player.color,
                 size: .5,
                 x: x + 12,
-                y: y + game.height / 2 - 20,
+                y: y + game.height / gridSize - 20,
                 scale: game.scale,
                 ctx: game.ctx
             });
@@ -206,7 +219,7 @@ const menuLoop = GameLoop({  // create the main game loop
                     color: player.color,
                     size: .5,
                     x: x + 30,
-                    y: y + game.height / 2 - 20,
+                    y: y + game.height / gridSize - 20,
                     scale: game.scale,
                     ctx: game.ctx
                 });
@@ -218,8 +231,8 @@ const menuLoop = GameLoop({  // create the main game loop
                 text: player.ready ? 'ready!' : 'selecting',
                 color: player.color,
                 size: .8,
-                x: x + game.width / 2 - 22,
-                y: y + game.height / 2 - 20,
+                x: x + game.width / gridSize - 22,
+                y: y + game.height / gridSize - 20,
                 scale: game.scale,
                 ctx: game.ctx
             });
@@ -227,33 +240,22 @@ const menuLoop = GameLoop({  // create the main game loop
             if (player.ship) {
                 player.ship.pseudoRender(
                     game.scale,
-                    x + game.width / 2 - 80,
-                    y + (game.height / 2 - 12) / 2
+                    x + game.width / gridSize - 80,
+                    y + (game.height / gridSize - 12) / 2
                 );
             }
         });
 
         // Draw "add new player" infos
         for (let i = game.players.length; i < 4; i++) {
-            let x = y = 0;
-
-            if (i === 1 || i == 3) {
-                x = 4 + game.width / 2;
-            } else {
-                x = 8;
-            }
-            if (i === 2 || i === 3) {
-                y = 4 + game.height / 2;
-            } else {
-                y = 8;
-            }
+            let [x, y] = getPlayerPos(i, gridSize, margin);
 
             renderText({
                 text: '(n) add ai player',
                 alignCenter: true,
                 size: .5,
-                x: x + game.width / 4,
-                y: y + game.height / 4 - 8,
+                x: x + game.width / (gridSize * 2),
+                y: y + game.height / (gridSize * 2) - 8,
                 scale: game.scale,
                 ctx: game.ctx
             });
@@ -262,8 +264,8 @@ const menuLoop = GameLoop({  // create the main game loop
                 text: game.unusedControls + ' add player',
                 alignCenter: true,
                 size: .5,
-                x: x + game.width / 4,
-                y: y + game.height / 4 + 8,
+                x: x + game.width / (gridSize * 2),
+                y: y + game.height / (gridSize * 2) + 8,
                 scale: game.scale,
                 ctx: game.ctx
             });
