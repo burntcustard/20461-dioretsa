@@ -54,10 +54,12 @@ function pickColor(players, controllerId) {
 
 export function newPlayer(game, controls, controllerId) {
 
-    let numColors = Object.keys(colors).length;
+    // To save space, we're hardcoding this max players number
+    // let numColors = Object.keys(colors).length;
 
-    if (game.players.length === numColors) {
-        console.warn('Game doesn\'t support > ' + numColors + ' players');
+    if (game.players.length === 7) {
+        // To save space, don't actually print out the max players warning
+        // console.warn('Game doesn\'t support >7 players');
         return;
     }
 
