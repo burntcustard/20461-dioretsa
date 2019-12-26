@@ -169,32 +169,19 @@ export class Player {
         this.ship.invuln = 3; // Invulnerability for 3 seconds while respawning
     }
 
-    renderScore(i) {
+    renderScore(i, numPlayers) {
         var textProps = {
             color: this.color,
             alignCenter: true,
             ctx: this.ctx,
+            x: this.game.width / 2 + 15 * Math.round((i + 1) / 2) * 2 - 15 * Math.round(numPlayers / 2) - 15,
+            y: i & 1 ? this.game.height / 2 + 15 : this.game.height / 2 - 15,
             text: this.score,
             scale: this.game.scale
         };
 
         if (this.score > 8) {
             textProps.size = 1.4
-        }
-
-        // Render the scores
-        if (i === 0) {
-            textProps.x = this.game.width / 2 - 15;
-            textProps.y = this.game.height / 2 - 15;
-        } else if (i === 1) {
-            textProps.x = this.game.width / 2 + 15;
-            textProps.y = this.game.height / 2 - 15;
-        } else if (i === 2) {
-            textProps.x = this.game.width / 2 - 15;
-            textProps.y = this.game.height / 2 + 15;
-        } else if (i === 3) {
-            textProps.x = this.game.width / 2 + 15;
-            textProps.y = this.game.height / 2 + 15;
         }
 
         renderText(textProps);

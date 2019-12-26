@@ -178,7 +178,9 @@ const gameLoop = GameLoop({  // create the main game loop
             gameOver.render(game);
         } else {
             // Render the player scores
-            game.players.map((player, i) => player.renderScore(i));
+            game.players.map((player, i) =>
+                player.renderScore(i, game.players.length)
+            );
         }
 
         // Render debug collision stuff
