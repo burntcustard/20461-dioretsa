@@ -172,17 +172,24 @@ export class Player {
     renderScore(i, numPlayers) {
         var textProps = {
             color: this.color,
-            alignCenter: true,
             ctx: this.ctx,
-            x: this.game.width / 2 + 15 * Math.round((i + 1) / 2) * 2 - 15 * Math.round(numPlayers / 2) - 15,
-            y: i & 1 ? this.game.height / 2 + 15 : this.game.height / 2 - 15,
+            alignCenter: true,
+            x: this.game.width / 2 + i * 26 -
+            (numPlayers > 2 ?
+                // More than 2 players? Set x based on drawing on 2 lines
+                Math.round(numPlayers / 2) * 13 +
+                (i < numPlayers / 2 ?
+                    0 // Line 1
+                    : Math.round(numPlayers / 2) * 26 // Line 2
+                ) - 13
+                // 2 players? Set x based on drawing all on 1 line
+                : 13
+            ),
+            y: this.game.height / 2 + (i < numPlayers / 2 ? -1 : 1) * (numPlayers > 2 ? 15 : 0),
             text: this.score,
-            scale: this.game.scale
+            scale: this.game.scale,
+            size: this.score > 8 ? 1.4 : 1
         };
-
-        if (this.score > 8) {
-            textProps.size = 1.4
-        }
 
         renderText(textProps);
     }

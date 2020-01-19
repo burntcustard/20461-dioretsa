@@ -11,7 +11,7 @@ import * as util from '../utility';
 var game;
 var scenes;
 
-function getPlayerPos(playerIndex, gridSize, margin) {
+function getPlayerUiPos(playerIndex, gridSize, margin) {
     let x = y = 0;
 
     // Grid position coords e.g.
@@ -172,7 +172,7 @@ const menuLoop = GameLoop({  // create the main game loop
         let margin = 4;
 
         game.players.forEach((player, i) => {
-            let [x, y] = getPlayerPos(i, gridSize, margin);
+            let [x, y] = getPlayerUiPos(i, gridSize, margin);
 
             game.ctx.save();
             game.ctx.scale(game.scale, game.scale);
@@ -248,7 +248,7 @@ const menuLoop = GameLoop({  // create the main game loop
 
         // Draw "add new player" infos
         for (let i = game.players.length; i < 4; i++) {
-            let [x, y] = getPlayerPos(i, gridSize, margin);
+            let [x, y] = getPlayerUiPos(i, gridSize, margin);
 
             renderText({
                 text: '(n) add ai player',

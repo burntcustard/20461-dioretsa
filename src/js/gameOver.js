@@ -96,7 +96,7 @@ export function render(game) {
                 renderText({
                     text: 'th',
                     color: player.color,
-                    x: x + margin + 16 * game.size, // 'th' is a bit wonky too
+                    x: x + margin + 17 * game.size, // 'th' is a bit wonky too
                     y: y + margin + 12 * game.size,
                     size: .5,
                     scale: game.scale,

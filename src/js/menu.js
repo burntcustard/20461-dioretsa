@@ -11,7 +11,7 @@ export class Menu {
         props.items.forEach((item, i) => {
             this.items.push({
                 text: item.text,
-                y: i * 24
+                y: i * 30
             });
         });
 
