@@ -65,6 +65,7 @@ export class Player {
         this.score = 0;
         this.shotsFired = 0;
         this.shotsLanded = 0;
+        this.scoreTextProps = 0;
     }
 
     handleKeyPresses() {
@@ -170,27 +171,32 @@ export class Player {
     }
 
     renderScore(i, numPlayers) {
-        var textProps = {
-            color: this.color,
-            ctx: this.ctx,
-            alignCenter: true,
-            x: this.game.width / 2 + i * 26 -
-            (numPlayers > 2 ?
-                // More than 2 players? Set x based on drawing on 2 lines
-                Math.round(numPlayers / 2) * 13 +
-                (i < numPlayers / 2 ?
-                    0 // Line 1
-                    : Math.round(numPlayers / 2) * 26 // Line 2
-                ) - 13
-                // 2 players? Set x based on drawing all on 1 line
-                : 13
-            ),
-            y: this.game.height / 2 + (i < numPlayers / 2 ? -1 : 1) * (numPlayers > 2 ? 15 : 0),
-            text: this.score,
-            scale: this.game.scale,
-            size: this.score > 8 ? 1.4 : 1
-        };
+        if (!this.scoreTextProps) {
+            this.scoreTextProps = {
+                color: this.color,
+                ctx: this.ctx,
+                alignCenter: true,
+                x: this.game.width / 2 + i * 26 -
+                (numPlayers > 2 ?
+                    // More than 2 players? Set x based on drawing on 2 lines
+                    Math.round(numPlayers / 2) * 13 +
+                    (i < numPlayers / 2 ?
+                        0 // Line 1
+                        : Math.round(numPlayers / 2) * 26 // Line 2
+                    ) - 13
+                    // 2 players? Set x based on drawing all on 1 line
+                    : 13
+                ),
+                y: this.game.height / 2 + (i < numPlayers / 2 ? -1 : 1) * (numPlayers > 2 ? 15 : 0),
+                text: this.score,
+                scale: this.game.scale,
+                size: this.score > 8 ? 1.4 : 1
+            }
+        } else {
+            this.scoreTextProps.text = this.score;
+            this.scoreTextProps.size = this.score > 8 ? 1.4 : 1;
+        }
 
-        renderText(textProps);
+        renderText(this.scoreTextProps);
     }
 }

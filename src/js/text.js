@@ -95,12 +95,12 @@ export function drawText(props) {
 export function renderText(props) {
     let size = props.size || 1;
     let xAlign = yAlign = 0;
-    
+
     props.ctx.save();
     props.ctx.scale(props.scale, props.scale);
 
     if (props.alignCenter) {
-        yAlign = -7 * size;
+        yAlign = -6.5 * size;
         xAlign = -props.text.toString().length * 6.5 * size;
     }
 
