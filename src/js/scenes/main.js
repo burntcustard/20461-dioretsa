@@ -27,7 +27,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
             }
 
             // If esc or x pressed on keyboard, remove keyboard player
-            // this doesn't work for gamepads as you could get 'em back!
+            // this doesn't work for gamepads as you couldn't get 'em back!
             if (player.keys.back() && player.controls !== 'gamepad') {
                 player.debounce.back--;
                 if (player.debounce.back <= 0) {
@@ -72,7 +72,7 @@ let mainMenuLoop = GameLoop({  // create the main game loop
                 }
                 sound.beep();
                 if (mainMenu.items[mainMenu.focus].text[0] === 'p') {
-                    window.removeEventListener('resize', slowCreateMenuMeteor);
+                    //window.removeEventListener('resize', slowCreateMenuMeteor);
                     mainMenuLoop.stop()
                     scenes.startShipSelect(game, scenes);
                 } else if (mainMenu.items[mainMenu.focus].text[0] === 's') {
@@ -164,12 +164,14 @@ function createMenuMeteor() {
 
 var resizeTimer;
 
-function slowCreateMenuMeteor() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        createMenuMeteor();
-    }, 90); // 90ms is enough for slow resize to not fire it multiple times
-}
+// Removed slowCreateMenuMeteor to reduce filesize!
+// Have to refresh page now to get it sized correctly!
+// function slowCreateMenuMeteor() {
+//     clearTimeout(resizeTimer);
+//     resizeTimer = setTimeout(() => {
+//         createMenuMeteor();
+//     }, 90); // 90ms is enough for slow resize to not fire it multiple times
+// }
 
 export function startMainMenu(newGame, otherScenes) {
 
@@ -196,7 +198,7 @@ export function startMainMenu(newGame, otherScenes) {
 
     createMenuMeteor();
 
-    window.addEventListener('resize', slowCreateMenuMeteor);
+    // window.addEventListener('resize', slowCreateMenuMeteor);
 
     mainMenuLoop.start(game, scenes);
 }
