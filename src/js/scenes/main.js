@@ -162,10 +162,11 @@ function createMenuMeteor() {
     });
 }
 
-var resizeTimer;
-
 // Removed slowCreateMenuMeteor to reduce filesize!
 // Have to refresh page now to get it sized correctly!
+//
+// var resizeTimer;
+//
 // function slowCreateMenuMeteor() {
 //     clearTimeout(resizeTimer);
 //     resizeTimer = setTimeout(() => {
