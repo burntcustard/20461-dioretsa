@@ -202,7 +202,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                 }
 
                 if (sprite1.rainbow) {
-                    if (60 > sprite2.radius && sprite2.radius > 8) {
+                    if (1e4 > sprite2.mass && sprite2.radius > 8) {
 
                         // Split the meteor
                         for (var i = 0; i < 3; i++) {
@@ -216,7 +216,7 @@ function doCollision(sprite1, sprite2, cResult, sprites) {
                         }
                         sprite2.ttl = 0;
                         sound.explodeMeteor();
-                    } else if (sprite2.radius > 60) {
+                    } else if (sprite2.mass > 1e4) {
                         sprite1.x -= cResult.overlap * cResult.overlap_x;
                         sprite1.y -= cResult.overlap * cResult.overlap_y;
                     } else {
