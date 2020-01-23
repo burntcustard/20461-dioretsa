@@ -3,8 +3,8 @@ import { keyDown } from './keyboard';
 import { buttonPressed, axisValue } from './gamepad';
 
 export default (scheme, gamepadIndex) => {
-    if (typeof scheme === 'string') {
-        switch (scheme.toLowerCase()) {
+    //if (typeof scheme === 'string') {
+        switch (scheme) {
             case 'arrows':
                 return {
                     thrust: () => keyDown('ArrowUp'),
@@ -44,5 +44,5 @@ export default (scheme, gamepadIndex) => {
             //default:
             //    console.error('Unknown control scheme');
         }
-    }
+    //}
 }
