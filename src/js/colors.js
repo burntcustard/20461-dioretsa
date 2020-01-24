@@ -11,5 +11,6 @@ export const colors = {
     blue: '#0bf',
     darkBlue: '#45f',
     purple: '#94f',
-    pink: '#f3b'
+    pink: '#f3b',
+    gray: '#ddd'
 }
