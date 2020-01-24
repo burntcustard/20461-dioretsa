@@ -11,13 +11,26 @@ export function render(game) {
     var pad = game.size * game.size * game.size * game.size * 32;
     var margin = 7; // Padding in game units between each card
     var contWidth = game.width - pad * 2; // Card container width
-    var cardWidth = contWidth / game.players.length - margin * 2;
-    var cardHeight = game.height - (pad + margin) * 2
     var y = pad + margin;
+    var cardWidth = contWidth / game.players.length - margin * 2;
+    var cardHeight = game.height - (pad + margin) * 2;
+
+    if (game.players.length > 2) {
+        cardHeight = cardHeight / 2 - margin;
+        cardWidth = contWidth / (Math.round(game.players.length / 2)) - margin * 2;
+    }
 
     game.players.forEach((player, i) => {
-        var x = pad + (cardWidth + margin * 2) * i + margin;
-        var player
+
+        if (game.players.length > 2) {
+            var x = pad + (cardWidth + margin * 2) * i + margin * 2;
+            if (i >= game.players.length / 2) {
+                y = pad + margin * 3 + cardHeight;
+                x -= contWidth;
+            }
+        } else {
+            var x = pad + (cardWidth + margin * 2) * i + margin;
+        }
 
         game.ctx.save();
         game.ctx.scale(game.scale, game.scale);
@@ -110,7 +123,7 @@ export function render(game) {
             color: player.color,
             size: .8,
             x: x + margin,
-            y: y + 50,
+            y: y + 40,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -120,7 +133,7 @@ export function render(game) {
             color: player.color,
             size: .5,
             x: x + margin,
-            y: y + 85,
+            y: y + 65,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -128,9 +141,10 @@ export function render(game) {
         renderText({
             text: player.score,
             color: player.color,
+            size: .6,
             alignRight: true,
             x: x + cardWidth - margin,
-            y: y + 80,
+            y: y + 65,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -140,7 +154,7 @@ export function render(game) {
             color: player.color,
             size: .5,
             x: x + margin,
-            y: y + 115,
+            y: y + 80,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -148,9 +162,10 @@ export function render(game) {
         renderText({
             text: player.deaths,
             color: player.color,
+            size: .6,
             alignRight: true,
             x: x + cardWidth - margin,
-            y: y + 110,
+            y: y + 80,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -160,7 +175,7 @@ export function render(game) {
             color: player.color,
             size: .5,
             x: x + margin,
-            y: y + 145,
+            y: y + 95,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -168,9 +183,10 @@ export function render(game) {
         renderText({
             text: ((player.shotsFired && player.shotsLanded) ? Math.round(100 / player.shotsFired * player.shotsLanded) : 0) + '%',
             color: player.color,
+            size: .6,
             alignRight: true,
             x: x + cardWidth - margin,
-            y: y + 140,
+            y: y + 95,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -180,7 +196,7 @@ export function render(game) {
             color: player.color,
             size: .5,
             x: x + margin,
-            y: y + 175,
+            y: y + 110,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -188,9 +204,10 @@ export function render(game) {
         renderText({
             text: player.crashes,
             color: player.color,
+            size: .6,
             alignRight: true,
             x: x + cardWidth - margin,
-            y: y + 170,
+            y: y + 110,
             scale: game.scale,
             ctx: game.ctx
         });
@@ -198,7 +215,7 @@ export function render(game) {
         renderText({
             text: player.ready ? 'next>' : 'ready!',
             color: player.color,
-            size: 1.3 * game.size,
+            size: 1.2 * game.size,
             alignRight: true,
             alignBottom: true,
             x: x + cardWidth - margin,

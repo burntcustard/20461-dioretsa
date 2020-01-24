@@ -123,7 +123,7 @@ const gameLoop = GameLoop({  // create the main game loop
 
                 // Check if someone has won!
                 // TODO: See if it's likely for 2 ships to get to 10 in same update
-                if (player.score === 10) {
+                if (player.score > 9) {
                     endGame();
                 }
             });
