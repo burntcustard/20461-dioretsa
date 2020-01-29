@@ -176,6 +176,7 @@ function minify() {
     code = code.replace(/color/g, '_color');
     code = code.replace(/angle/g, '_angle');
     code = code.replace(/accept/g, '_accept');
+    code = code.replace(/size/g, '_size');
 
     const result = terser.minify(code, options);
 

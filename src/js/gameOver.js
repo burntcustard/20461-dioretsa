@@ -17,19 +17,15 @@ export function render(game) {
 
     if (game.players.length > 2) {
         cardHeight = cardHeight / 2 - margin;
-        cardWidth = contWidth / (Math.round(game.players.length / 2)) - margin * 2;
+        cardWidth = contWidth / Math.round(game.players.length / 2) - margin * 2;
     }
 
     game.players.forEach((player, i) => {
+        var x = pad + (cardWidth + margin * 2) * i + margin;
 
-        if (game.players.length > 2) {
-            var x = pad + (cardWidth + margin * 2) * i + margin * 2;
-            if (i >= game.players.length / 2) {
-                y = pad + margin * 3 + cardHeight;
-                x -= contWidth;
-            }
-        } else {
-            var x = pad + (cardWidth + margin * 2) * i + margin;
+        if (game.players.length > 2 && i >= game.players.length / 2) {
+            y = pad + margin * 3 + cardHeight;
+            x -= contWidth;
         }
 
         game.ctx.save();
