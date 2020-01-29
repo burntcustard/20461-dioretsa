@@ -176,7 +176,8 @@ function minify() {
     code = code.replace(/color/g, '_color');
     code = code.replace(/angle/g, '_angle');
     code = code.replace(/accept/g, '_accept');
-    code = code.replace(/size/g, '_size');
+    // Any 'size' except 'esize' because we don't want to screw 'resize' up
+    code = code.replace(/([^e])size/g, '$1_size');
 
     const result = terser.minify(code, options);
 
