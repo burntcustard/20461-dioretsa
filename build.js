@@ -107,7 +107,7 @@ const compile = async () => {
               .then(async (bundle) => {
                   await bundle.write(config.output);
                   logOutput(Date.now() - startTime, config.output.file);
-                  inline(minify()) && zip();
+                  inline(minify()) && zip(startTime);
               })
               .catch(error => {
                   printRollupError(error);
@@ -252,7 +252,7 @@ function drawSize(used) {
     console.log(output);
 }
 
-function zip() {
+function zip(initialStartTime) {
     const startTime = Date.now();
 
     console.log('Zipping...');
@@ -277,6 +277,7 @@ function zip() {
        .pipe(fs.createWriteStream('dist/main.zip'))
        .on('finish', function() {
            logOutput(Date.now() - startTime, 'dist/main.zip');
+           logOutput(Date.now() - initialStartTime, 'Total build time');
            drawSize(fs.statSync('dist/main.zip').size);
            return true;
        });
