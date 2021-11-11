@@ -25,7 +25,7 @@ function getKeyByValue(obj, value) {
 
 export function pollGamepads(game) {
 
-    browserGamepads = navigator.getGamepads();
+    browserGamepads = navigator.getGamepads ? navigator.getGamepads() : [];
 
     Array.prototype.forEach.call(browserGamepads, pad => {
         if (!pad) {
