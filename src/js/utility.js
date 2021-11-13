@@ -42,17 +42,28 @@ export function applyMaxSpeed(velocity, maxSpeed) {
 export function slow(velocity, mass = 10, maxSpeed = 3) {
     const magnitude = normalise(velocity);
     const minSpeed = .01;
-    var [ dx, dy ] = [ velocity.x, velocity.y ];
+    // var [ dx, dy ] = [ velocity.x, velocity.y ];
+    //
+    // if (magnitude > maxSpeed) {
+    //     dx = dx / magnitude * maxSpeed;
+    //     dy = dy / magnitude * maxSpeed;
+    // } else {
+    //     dx = Math.abs(dx) > minSpeed ? dx * Math.min(.99, .83 + mass / 99) : 0;
+    //     dy = Math.abs(dy) > minSpeed ? dy * Math.min(.99, .83 + mass / 99) : 0;
+    // }
+    //
+    // [ velocity.x, velocity.y ] = [ dx, dy ];
+    velocity.x = magnitude > maxSpeed
+      ? velocity.x / magnitude * maxSpeed
+      : Math.abs(velocity.x) > minSpeed
+        ? velocity.x * Math.min(.99, .83 + mass / 99)
+        : 0;
 
-    if (magnitude > maxSpeed) {
-        dx = dx / magnitude * maxSpeed;
-        dy = dy / magnitude * maxSpeed;
-    } else {
-        dx = Math.abs(dx) > minSpeed ? dx * Math.min(.99, .83 + mass / 99) : 0;
-        dy = Math.abs(dy) > minSpeed ? dy * Math.min(.99, .83 + mass / 99) : 0;
-    }
-
-    [ velocity.x, velocity.y ] = [ dx, dy ];
+    velocity.y = magnitude > maxSpeed
+      ? velocity.y / magnitude * maxSpeed
+      : Math.abs(velocity.y) > minSpeed
+        ? velocity.y * Math.min(.99, .83 + mass / 99)
+        : 0;
 }
 
 export function objValPrev(obj, current) {
