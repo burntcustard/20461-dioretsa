@@ -20,7 +20,7 @@
   "homepage": "https://github.com/burntcustard/20461-dioretsa#readme",
   "dependencies": {
     "ansi-colors": "^4.1.1",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.10",
     "collisions": "^2.0.13",
     "jszip": "^3.2.2",
     "kontra": "^6.2.3",
